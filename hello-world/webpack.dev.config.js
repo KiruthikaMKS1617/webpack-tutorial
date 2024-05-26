@@ -8,7 +8,7 @@ module.exports = {
   output: {
     filename: "hello-world.bundle.js",
     path: path.resolve(__dirname, "./dist"),
-    publicPath: "http://localhost:9001",
+    publicPath: "http://localhost:9001/",
   },
   mode: "development",
   devServer: {
@@ -57,7 +57,7 @@ module.exports = {
       filename: "remoteEntry.js",
       exposes: {
         "./HelloWorldButton":
-          "src/components/hello-world-button/hello-world-button.js",
+          "./src/components/hello-world-button/hello-world-button.js",
       },
     }),
   ],
