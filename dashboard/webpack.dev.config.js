@@ -6,15 +6,16 @@ const { ModuleFederationPlugin } = require("webpack").container;
 module.exports = {
   entry: "./src/dashboard.js",
   output: {
-    filename: "[name].bundle.js",
+    filename: "dashboard.bundle.js",
     path: path.resolve(__dirname, "./dist"),
     publicPath: "http://localhost:9000/",
   },
   mode: "development",
   devServer: {
-    contentBase: path.resolve(__dirname, "./dist"),
     port: 9000,
-    index: "dashboard.html",
+    static: {
+      directory: path.resolve(__dirname, "./dist"),
+    },
     historyApiFallback: {
       index: "dashboard.html",
     },
@@ -22,7 +23,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(jsx|js)$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -31,26 +32,20 @@ module.exports = {
           },
         },
       },
-      {
-        test: /\.hbs$/,
-        use: ["handlebars-loader"],
-      },
-    ],
-    plugins: [
-      new CleanWebpackPlugin(),
-      new HtmlWebpackPlugin({
-        filename: "dashboard.html",
-        title: "Dashboard",
-        description: "A simple dashboard",
-        template: "src/page-template.hbs",
-      }),
-      new ModuleFederationPlugin({
-        name: "App",
-        remotes: {
-          HelloWorldApp: "HelloWorldApp@http://localhost:9001/remoteEntry.js",
-          KiwiApp: "KiwiApp@http://localhost:9002/remoteEntry.js",
-        },
-      }),
     ],
   },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      filename: "dashboard.html",
+      title: "Dashboard",
+    }),
+    new ModuleFederationPlugin({
+      name: "App",
+      remotes: {
+        HelloWorldApp: "HelloWorldApp@http://localhost:9001/remoteEntry.js",
+        KiwiApp: "KiwiApp@http://localhost:9002/remoteEntry.js",
+      },
+    }),
+  ],
 };
