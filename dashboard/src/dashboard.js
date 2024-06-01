@@ -1,3 +1,19 @@
+import NavigationBar from "./components/navigation-bar/navigation-bar";
+
+const navItems = [
+  {
+    path: "/hello-world-page",
+    title: "Hello World",
+  },
+  {
+    path: "/kiwi-page",
+    title: "Kiwi",
+  },
+];
+
+const navBar = new NavigationBar();
+navBar.render(navItems);
+
 const url = window.location.pathname;
 
 if (url === "/hello-world-page") {

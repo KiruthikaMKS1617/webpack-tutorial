@@ -1,0 +1,27 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.nav-bar{
+    background-color: salmon;
+    
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    padding: 10px 5px;
+
+    li{
+        list-style: none;
+        cursor: pointer;
+    }
+
+    a{
+        text-decoration: none;
+        color: #fff;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+}
